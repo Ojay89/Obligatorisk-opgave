@@ -16,7 +16,7 @@ namespace BookTest
         [TestInitialize]
         public void BookTest()
         {
-            _book = new Book(Title: "Omars bog", Author: "Omar Jaber", 498, 1123145234123); //arrange
+            _book = new Book(Title: "Omars bog", Author: "Omar Jaber", 498, "1942432421123"); //arrange
         }
 
         [TestMethod()]
@@ -40,12 +40,12 @@ namespace BookTest
             Assert.AreEqual(498, _book.PageNo); //Assert
         }
 
-        //[TestMethod()]
-        //public void Isbn13Test()
-        //{
-        //    _book.Isbn13 = 9371947264912; //act
-        //    Assert.AreEqual(9371947264912, _book.Isbn13); //Assert
-        //}
+        [TestMethod()]
+        public void Isbn13Test()
+        {
+            _book.Isbn13 = "1942432421123"; //act
+            Assert.AreEqual("1942432421123", _book.Isbn13); //Assert
+        }
 
 
     }

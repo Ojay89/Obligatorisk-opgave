@@ -12,10 +12,10 @@ namespace ObligatoriskOpgave
         private string _title;
         private string _author;
         private int _pageNo;
-        private long _isbn13;
+        private string _isbn13;
 
         //Constructor
-        public Book(string Title, string Author, int PageNo, long Isbn13)
+        public Book(string Title, string Author, int PageNo, string Isbn13)
         {
             _title = Title;
             _author = Author;
@@ -52,19 +52,18 @@ namespace ObligatoriskOpgave
             }
         }
 
-        //public long Isbn13
-        //{
-        //    get => _isbn13;
+        public string Isbn13
+        {
+            get => _isbn13;
 
-        //    set
+            set
 
-        //    {
-        //        _isbn13 = value;
-        //        if (value <= 12) throw new ArgumentOutOfRangeException("ISBN", value, "Er for kort. Skal være 13 cifre.");
-        //        else if (value >= 14) throw new ArgumentOutOfRangeException("ISBN", value, "ISBN er for lang. Skal være 13 cifre");
-        //        if (value == 13) _isbn13 = value;
-
-        //    }
-        //}
+            {
+                _isbn13 = value;
+                if (value.Length == 13) _isbn13 = value;
+                else if (value.Length != 13) throw new ArgumentOutOfRangeException("ISBN er for lang. Skal være 13 cifre");
+                
+            }
+        }
     }
 }
