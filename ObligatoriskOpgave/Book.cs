@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Authentication;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -15,19 +16,23 @@ namespace ObligatoriskOpgave
         private string _isbn13;
 
         //Constructor
-        public Book(string Title, string Author, int PageNo, string Isbn13)
+        public Book(string title, string author, int pageNo, string isbn13)
         {
-            _title = Title;
-            _author = Author;
-            _pageNo = PageNo;
-            _isbn13 = Isbn13;
+            Title = title;
+            Author = author;
+            PageNo = pageNo;
+            Isbn13 = isbn13;
         }
 
         //Properties
         public string Title
         {
             get => _title;
-            set { _title = value; }
+            set
+            {
+                if(value ==null) throw new NullReferenceException("Bogen skal have en titel");
+                _title = value;
+            }
         }
 
         public string Author
@@ -35,9 +40,9 @@ namespace ObligatoriskOpgave
             get => _author;
             set
             {
-                if (value == null) throw new ArgumentException("Skriv et navn");
+                if (value == null) throw new NullReferenceException("Skriv et navn");
                 if (value.Length < 2) throw new ArgumentException("Forfatter navn skal være minimum 2 tegn langt");
-                _title = value;
+                _author = value;
             }
 
         }
@@ -47,8 +52,9 @@ namespace ObligatoriskOpgave
             get => _pageNo;
             set
             {
-                if (value <= 4) throw new ArgumentException("Bogen er for kort");
-                if (value >= 1000) throw new ArgumentException("Bogen er for lang");
+                if (value <= 4) throw new ArgumentOutOfRangeException("Bogen er for kort");
+                if (value >= 1000) throw new ArgumentOutOfRangeException("Bogen er for lang");
+                _pageNo = value;
             }
         }
 
@@ -61,7 +67,7 @@ namespace ObligatoriskOpgave
             {
                 _isbn13 = value;
                 if (value.Length == 13) _isbn13 = value;
-                else if (value.Length != 13) throw new ArgumentOutOfRangeException("ISBN er for lang. Skal være 13 cifre");
+                else if (value.Length != 13) throw new ArgumentException("ISBN skal være 13 cifre");
                 
             }
         }
